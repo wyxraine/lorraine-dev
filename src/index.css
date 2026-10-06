@@ -1,0 +1,96 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light dark;
+
+  /* Light Studio Palette */
+  --color-workspace-bg: #f5f6f8;
+  --color-workspace-sidebar: #ebedf0;
+  --color-workspace-panel: #ffffff;
+  --color-workspace-card: #f3f4f6;
+  --color-workspace-hover: #e5e7eb;
+  --color-workspace-border: #dbe0e6;
+  --color-workspace-border-light: #cbd5e1;
+
+  --color-content-primary: #111827;
+  --color-content-secondary: #4b5563;
+  --color-content-muted: #8b949e;
+
+  --color-brand-red: #e5484d;
+  --color-brand-red-light: #ff6b6b;
+  --color-brand-red-dark: #c53b40;
+  --color-brand-red-subtle: rgba(229, 72, 77, 0.08);
+
+  --color-status-green: #10b981;
+  --color-status-green-subtle: rgba(16, 185, 129, 0.12);
+}
+
+.dark {
+  color-scheme: dark;
+
+  /* Dark Studio Palette */
+  --color-workspace-bg: #111111;
+  --color-workspace-sidebar: #181818;
+  --color-workspace-panel: #1d1d1d;
+  --color-workspace-card: #232323;
+  --color-workspace-hover: #282828;
+  --color-workspace-border: #262626;
+  --color-workspace-border-light: #2e2e2e;
+
+  --color-content-primary: #f2f2f2;
+  --color-content-secondary: #a7a7a7;
+  --color-content-muted: #707070;
+
+  --color-brand-red: #e5484d;
+  --color-brand-red-light: #ff6b6b;
+  --color-brand-red-dark: #c53b40;
+  --color-brand-red-subtle: rgba(229, 72, 77, 0.12);
+
+  --color-status-green: #67d391;
+  --color-status-green-subtle: rgba(103, 211, 145, 0.15);
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #151515;
+}
+
+::-webkit-scrollbar-track {
+  background: #e5e7eb;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c5cc;
+  border-radius: 4px;
+}
+
+/* Background grid */
+.dark .bg-workspace-grid {
+  background-size: 24px 24px;
+  background-image: 
+    radial-gradient(circle, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+}
+
+.bg-workspace-grid {
+  background-size: 24px 24px;
+  background-image: 
+    radial-gradient(circle, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+}
+
+/* Glassmorphism / subtle window blur */
+.window-blur {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
