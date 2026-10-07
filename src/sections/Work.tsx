@@ -9,13 +9,14 @@ export const Work: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
   const [activeProject, setActiveProject] = useState<Project | null>(null);
 
-  const categories = ['ALL', 'AI', 'WEB', 'MOBILE'];
+  const categories = ['ALL', 'AI', 'WEB', 'MOBILE', 'GAME'];
 
   const filteredProjects = projectsData.filter((p) => {
     if (selectedCategory === 'ALL') return true;
     if (selectedCategory === 'AI') return p.category === 'AI';
     if (selectedCategory === 'MOBILE') return p.category === 'Mobile' || p.id === 'lexiaid';
     if (selectedCategory === 'WEB') return p.category === 'Web';
+    if (selectedCategory === 'GAME') return p.category === 'Game' || p.category === 'GAME';
     return p.category.toUpperCase() === selectedCategory;
   });
 

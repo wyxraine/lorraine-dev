@@ -66,6 +66,15 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
           <div className="flex-1 overflow-y-auto p-6 sm:p-8 space-y-8 text-content-secondary">
             {/* Title & Banner */}
             <div className="space-y-3 pb-6 border-b border-workspace-border">
+              {project.image && (
+                <div className="relative w-full aspect-video max-h-[240px] sm:max-h-[300px] rounded-xl overflow-hidden bg-workspace-bg border border-workspace-border/60 mb-4">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover object-top"
+                  />
+                </div>
+              )}
               <h2 className="text-2xl sm:text-3xl font-extrabold text-content-primary">
                 {project.title}
               </h2>

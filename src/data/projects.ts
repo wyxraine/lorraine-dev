@@ -379,5 +379,44 @@ export const projectsData: Project[] = [
       ],
       result: 'Created an educational calculus tool that breaks down symbolic differentiation into clear, step-by-step derivations for learning.'
     }
+  },
+  {
+    id: 'capybara-rush',
+    filename: 'capybara_rush.app',
+    title: 'Capybara Rush',
+    subtitle: '2D Arcade Game',
+    category: 'Game',
+    featured: false,
+    image: '/capybara_rush.jpg',
+    description: 'A simple 2D arcade game built with Unity and C# where players collect fruits for points while avoiding enemy capybaras and managing limited lives.',
+    technologies: ['C#', 'Unity'],
+    accentColor: '#F6AD55',
+    metrics: [
+      { label: 'Type', value: '2D Arcade Game' },
+      { label: 'Engine', value: 'Unity' },
+      { label: 'Language', value: 'C#' }
+    ],
+    caseStudy: {
+      problem: 'Capybara Rush is designed as a simple arcade experience where players need to collect fruits for points while avoiding enemy capybaras and managing limited lives.',
+      role: 'Game Developer — Developed the game using Unity and C#, implementing the gameplay logic, scoring system, enemy interactions, and life system.',
+      whatIBuilt: [
+        'Player-controlled capybara movement and gameplay mechanics.',
+        'Fruit collection system that increases the player\'s score.',
+        'Devil Capybara encounter system that subtracts points and costs one life.',
+        'Three-life system that gives the player limited attempts to continue playing.',
+        'Basic arcade-style scoring and gameplay flow using Unity and C#.'
+      ],
+      technologies: [
+        'C#',
+        'Unity'
+      ],
+      keyFeatures: [
+        'Fruit encounters that increase the player\'s score.',
+        'Devil Capybara encounters that decrease points and remove one life.',
+        'Three-life gameplay system.',
+        'Simple arcade-style gameplay built with Unity.'
+      ],
+      result: 'Created a simple and engaging arcade game that combines score-based progression with a limited-life system, giving players a clear objective while adding challenge through enemy encounters.'
+    }
   }
 ];

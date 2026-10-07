@@ -227,14 +227,13 @@ export const About: React.FC<AboutProps> = ({ onNavigate }) => {
             <span className="text-content-primary font-semibold">~/lorraine/personal/beyond-code/</span>
           </div>
           <span className="text-[10px] tracking-wider text-content-muted uppercase font-semibold">
-            PERSONAL DIRECTORY · 05 FILES · 2026
+            PERSONAL DIRECTORY · {String(interestsData.length).padStart(2, '0')} FILES · 2026
           </span>
         </div>
 
-        {/* Asymmetrical 5-Card Grid */}
+        {/* 4-Card Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
           {interestsData.map((item) => {
-            const isFeatured = item.id === 'photography';
             const Icon = item.icon;
 
             return (
@@ -242,80 +241,40 @@ export const About: React.FC<AboutProps> = ({ onNavigate }) => {
                 key={item.id}
                 type="button"
                 onClick={() => setSelectedInterest(item)}
-                className={`relative overflow-hidden p-5 rounded-xl bg-workspace-panel border border-workspace-border hover:border-brand-red/60 transition-all duration-200 text-left group cursor-pointer shadow-sm hover:shadow-glow-red/10 focus:outline-none focus:ring-2 focus:ring-brand-red/50 ${
-                  isFeatured ? 'md:col-span-2' : 'col-span-1'
-                }`}
+                className="relative overflow-hidden p-5 rounded-xl bg-workspace-panel border border-workspace-border hover:border-brand-red/60 transition-all duration-200 text-left group cursor-pointer shadow-sm hover:shadow-glow-red/10 focus:outline-none focus:ring-2 focus:ring-brand-red/50 col-span-1"
               >
-                {isFeatured ? (
-                  /* Featured Photography Layout */
-                  <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-5">
-                    <div className="space-y-2 flex-1">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <Icon className="w-3.5 h-3.5 text-content-muted group-hover:text-brand-red transition-colors shrink-0" />
-                          <span className="text-xs font-mono text-content-secondary group-hover:text-content-primary transition-colors font-medium">
-                            {item.filename}
-                          </span>
-                          <span className="px-1.5 py-0.2 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-brand-red/15 text-brand-red border border-brand-red/30">
-                            FEATURED
-                          </span>
-                        </div>
-                        <span className="text-[10px] font-mono font-bold tracking-wider text-content-muted uppercase group-hover:text-brand-red transition-colors md:hidden">
-                          {item.category}
+                {/* Standard Document Card Layout */}
+                <div className="relative z-10 flex flex-col justify-between h-full space-y-5">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Icon className="w-3.5 h-3.5 text-content-muted group-hover:text-brand-red transition-colors shrink-0" />
+                        <span className="text-xs font-mono text-content-secondary group-hover:text-content-primary transition-colors font-medium">
+                          {item.filename}
                         </span>
                       </div>
-                      <h3 className="text-lg font-bold text-content-primary group-hover:text-brand-red transition-colors pt-0.5">
+                      <span className="text-[10px] font-mono font-bold tracking-wider text-content-muted uppercase group-hover:text-brand-red transition-colors">
+                        {item.category}
+                      </span>
+                    </div>
+
+                    <div>
+                      <h3 className="text-base font-bold text-content-primary group-hover:text-brand-red transition-colors">
                         {item.title}
                       </h3>
-                      <p className="text-xs sm:text-sm text-content-secondary leading-relaxed max-w-xl">
+                      <p className="text-xs text-content-secondary leading-relaxed line-clamp-2 mt-1.5">
                         {item.description}
                       </p>
                     </div>
-
-                    <div className="flex items-center justify-between md:justify-end gap-4 pt-3 md:pt-0 border-t md:border-t-0 border-workspace-border shrink-0">
-                      <span className="hidden md:inline-block text-[10px] font-mono font-bold tracking-wider text-content-muted uppercase group-hover:text-brand-red transition-colors">
-                        {item.category}
-                      </span>
-                      <div className="flex items-center gap-1 text-xs font-mono text-content-primary group-hover:text-brand-red transition-colors font-medium">
-                        <span>VIEW PHOTO</span>
-                        <ArrowRight className="w-4 h-4 text-content-muted group-hover:text-brand-red group-hover:translate-x-1 transition-all" />
-                      </div>
-                    </div>
                   </div>
-                ) : (
-                  /* Standard Document Card Layout */
-                  <div className="relative z-10 flex flex-col justify-between h-full space-y-5">
-                    <div className="space-y-3">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <Icon className="w-3.5 h-3.5 text-content-muted group-hover:text-brand-red transition-colors shrink-0" />
-                          <span className="text-xs font-mono text-content-secondary group-hover:text-content-primary transition-colors font-medium">
-                            {item.filename}
-                          </span>
-                        </div>
-                        <span className="text-[10px] font-mono font-bold tracking-wider text-content-muted uppercase group-hover:text-brand-red transition-colors">
-                          {item.category}
-                        </span>
-                      </div>
 
-                      <div>
-                        <h3 className="text-base font-bold text-content-primary group-hover:text-brand-red transition-colors">
-                          {item.title}
-                        </h3>
-                        <p className="text-xs text-content-secondary leading-relaxed line-clamp-2 mt-1.5">
-                          {item.description}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between pt-3 border-t border-workspace-border">
-                      <span className="text-[10px] font-mono font-medium text-content-muted">
-                        {item.metaType}
-                      </span>
-                      <ArrowRight className="w-4 h-4 text-content-muted group-hover:text-brand-red group-hover:translate-x-1 transition-all" />
-                    </div>
+                  <div className="flex items-center justify-between pt-3 border-t border-workspace-border">
+                    <span className="text-[10px] font-mono font-medium text-content-muted">
+                      {item.metaType}
+                    </span>
+                    <ArrowRight className="w-4 h-4 text-content-muted group-hover:text-brand-red group-hover:translate-x-1 transition-all" />
                   </div>
-                )}
+                </div>
               </button>
             );
           })}
@@ -549,83 +508,41 @@ export const About: React.FC<AboutProps> = ({ onNavigate }) => {
               </div>
 
               {/* Window Content */}
-              {selectedInterest.type === 'image' ? (
-                /* Photography Viewport Modal */
-                <div className="p-6 space-y-5">
-                  <div className="relative aspect-[16/10] w-full rounded-lg overflow-hidden bg-workspace-bg border border-workspace-border">
-                    <img
-                      src={selectedInterest.imageUrl || '/contemp.jpg'}
-                      alt={selectedInterest.title}
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src = '/profile.jpg';
-                      }}
-                    />
-                    <div className="absolute bottom-2.5 left-2.5 bg-black/80 backdrop-blur-md px-3 py-1 rounded text-[10px] font-mono text-white border border-white/10 flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-brand-red animate-pulse" />
-                      <span>3840 x 2160 · 35mm · ISO 100</span>
-                    </div>
-                  </div>
-
-                  <div className="space-y-2 font-sans">
-                    <div className="flex items-center justify-between">
-                      <h3 className="text-xl font-bold font-mono tracking-wider text-content-primary uppercase">
-                        {selectedInterest.title}
-                      </h3>
-                      <span className="px-2.5 py-0.5 rounded text-xs font-mono font-bold bg-brand-red/15 text-brand-red border border-brand-red/30">
-                        {selectedInterest.category}
-                      </span>
-                    </div>
-                    <p className="text-sm text-content-secondary leading-relaxed">
-                      {selectedInterest.description}
-                    </p>
-                  </div>
-
-                  <div className="pt-4 border-t border-workspace-border flex items-center justify-between text-xs font-mono text-content-muted">
-                    <span>{selectedInterest.metaCategory}</span>
-                    <span className="px-2 py-0.5 rounded bg-workspace-card text-brand-red border border-workspace-border">
-                      {selectedInterest.metaType}
+              <div className="p-6 space-y-6 text-content-primary font-sans">
+                <div className="flex items-center justify-between border-b border-workspace-border pb-3">
+                  <div>
+                    <span className="text-[10px] font-mono font-bold tracking-widest text-content-muted uppercase">
+                      FILE CONTENT
                     </span>
+                    <h3 className="text-xl font-bold font-mono tracking-wider text-content-primary uppercase mt-0.5">
+                      {selectedInterest.title}
+                    </h3>
                   </div>
+                  <span className="px-2.5 py-1 rounded text-xs font-mono font-semibold bg-workspace-card text-brand-red border border-workspace-border">
+                    {selectedInterest.filename}
+                  </span>
                 </div>
-              ) : (
-                /* Code / Document File Modal */
-                <div className="p-6 space-y-6 text-content-primary font-sans">
-                  <div className="flex items-center justify-between border-b border-workspace-border pb-3">
-                    <div>
-                      <span className="text-[10px] font-mono font-bold tracking-widest text-content-muted uppercase">
-                        FILE CONTENT
-                      </span>
-                      <h3 className="text-xl font-bold font-mono tracking-wider text-content-primary uppercase mt-0.5">
-                        {selectedInterest.title}
-                      </h3>
-                    </div>
-                    <span className="px-2.5 py-1 rounded text-xs font-mono font-semibold bg-workspace-card text-brand-red border border-workspace-border">
-                      {selectedInterest.filename}
-                    </span>
-                  </div>
 
-                  {/* Document Body code-editor format */}
-                  <div className="bg-workspace-sidebar p-4 rounded-lg border border-workspace-border font-mono text-xs text-content-secondary space-y-3 leading-relaxed">
-                    <div className="flex items-center gap-2 text-content-muted border-b border-workspace-border pb-2 text-[11px]">
-                      <span className="text-brand-red">//</span>
-                      <span>Category: {selectedInterest.category}</span>
-                      <span>·</span>
-                      <span>Type: {selectedInterest.metaType}</span>
-                    </div>
-                    <p className="text-content-primary font-sans text-sm pt-1 leading-relaxed">
-                      {selectedInterest.description}
-                    </p>
+                {/* Document Body code-editor format */}
+                <div className="bg-workspace-sidebar p-4 rounded-lg border border-workspace-border font-mono text-xs text-content-secondary space-y-3 leading-relaxed">
+                  <div className="flex items-center gap-2 text-content-muted border-b border-workspace-border pb-2 text-[11px]">
+                    <span className="text-brand-red">//</span>
+                    <span>Category: {selectedInterest.category}</span>
+                    <span>·</span>
+                    <span>Type: {selectedInterest.metaType}</span>
                   </div>
-
-                  <div className="pt-3 border-t border-workspace-border flex items-center justify-between text-xs font-mono text-content-muted">
-                    <span>{selectedInterest.metaCategory}</span>
-                    <span className="px-2 py-0.5 rounded bg-workspace-card text-brand-red border border-workspace-border">
-                      {selectedInterest.metaType}
-                    </span>
-                  </div>
+                  <p className="text-content-primary font-sans text-sm pt-1 leading-relaxed">
+                    {selectedInterest.description}
+                  </p>
                 </div>
-              )}
+
+                <div className="pt-3 border-t border-workspace-border flex items-center justify-between text-xs font-mono text-content-muted">
+                  <span>{selectedInterest.metaCategory}</span>
+                  <span className="px-2 py-0.5 rounded bg-workspace-card text-brand-red border border-workspace-border">
+                    {selectedInterest.metaType}
+                  </span>
+                </div>
+              </div>
             </motion.div>
           </div>
         )}

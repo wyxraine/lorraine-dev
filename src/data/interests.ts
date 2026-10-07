@@ -1,4 +1,4 @@
-import { Music, Shirt, Camera, Smartphone, BookOpen, type LucideIcon } from 'lucide-react';
+import { Music, Shirt, Smartphone, BookOpen, type LucideIcon } from 'lucide-react';
 
 export interface InterestItem {
   id: string;
@@ -35,18 +35,6 @@ export const interestsData: InterestItem[] = [
     type: 'document',
     metaCategory: 'PERSONAL INTEREST',
     metaType: 'STYLE'
-  },
-  {
-    id: 'photography',
-    filename: 'photography.jpg',
-    title: 'Photography',
-    category: 'VISUAL',
-    description: 'I enjoy capturing moments, details, and things that catch my eye.',
-    icon: Camera,
-    type: 'image',
-    metaCategory: 'VISUAL · PERSONAL',
-    metaType: 'VISUAL',
-    imageUrl: '/contemp.jpg'
   },
   {
     id: 'creator',
