@@ -15,7 +15,7 @@ export const Button: React.FC<ButtonProps> = ({
   className = '',
   ...props
 }) => {
-  const baseStyles = 'inline-flex items-center justify-center font-medium transition-all duration-200 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed select-none';
+  const baseStyles = 'inline-flex items-center justify-center font-medium transition-colors duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/50 focus-visible:ring-offset-1 focus-visible:ring-offset-workspace-bg active:translate-y-[1px] disabled:opacity-50 disabled:cursor-not-allowed select-none';
 
   const sizeStyles = {
     sm: 'text-xs px-3 py-1.5 rounded gap-1.5',
@@ -24,8 +24,8 @@ export const Button: React.FC<ButtonProps> = ({
   };
 
   const variantStyles = {
-    primary: 'bg-brand-red text-white hover:bg-brand-red-light shadow-md shadow-brand-red/20 active:translate-y-0.5 border-0 outline-none',
-    secondary: 'bg-workspace-panel hover:bg-workspace-card text-content-primary border border-workspace-border hover:border-brand-red/60 active:translate-y-0.5 outline-none',
+    primary: 'bg-brand-red text-white hover:bg-brand-red-light shadow-sm shadow-brand-red/20 border-0 outline-none',
+    secondary: 'bg-workspace-panel hover:bg-workspace-card text-content-primary border border-workspace-border hover:border-brand-red/60 outline-none',
     ghost: 'bg-transparent hover:bg-workspace-panel text-content-secondary hover:text-content-primary border-0 outline-none',
     danger: 'bg-red-900/40 text-red-300 border border-red-800 hover:bg-red-900/60 outline-none',
   };

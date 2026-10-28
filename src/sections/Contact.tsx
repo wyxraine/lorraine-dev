@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { WindowFrame } from '../components/windows/WindowFrame';
 import { FloatingMessage } from '../components/ui/FloatingMessage';
 import { portfolioMeta } from '../data/portfolioData';
+import { useAnimationConfig, getPageEntrance } from '../utils/motion';
 
 // Monochrome Lucide / SVG icons for platforms
 const GithubIcon: React.FC<{ className?: string }> = ({ className = 'w-4 h-4' }) => (
@@ -51,13 +52,12 @@ const getPlatformIcon = (id: string) => {
 
 export const Contact: React.FC = () => {
   const emailAddress = portfolioMeta.socialLinks.email;
+  const { prefersReducedMotion, isMobile } = useAnimationConfig();
 
   return (
     <>
       <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
+        {...getPageEntrance(prefersReducedMotion, isMobile)}
         className="space-y-8"
       >
         {/* Left-Aligned Header Matching Other Sections */}

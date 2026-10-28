@@ -2,6 +2,7 @@ import React from 'react';
 import { ArrowUpRight, ExternalLink } from 'lucide-react';
 import { motion } from 'framer-motion';
 import type { Project } from '../../types';
+import { useAnimationConfig, getCardHover } from '../../utils/motion';
 
 const GithubIcon: React.FC<{ className?: string }> = ({ className = 'w-3.5 h-3.5' }) => (
   <svg className={className} fill="currentColor" viewBox="0 0 24 24">
@@ -20,14 +21,14 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   onOpenCaseStudy,
   isFeatured = false,
 }) => {
+  const { canHover, prefersReducedMotion } = useAnimationConfig();
   const displayFilename = project.filename || `${project.title.toLowerCase().replace(/['\s]+/g, '_')}.app`;
   const hasSecondaryLinks = Boolean(project.githubUrl || project.liveDemoUrl || project.liveUrl);
 
   return (
     <motion.div
-      whileHover={{ y: -3 }}
-      transition={{ duration: 0.2 }}
-      className={`bg-workspace-panel border border-workspace-border hover:border-brand-red/50 rounded-xl overflow-hidden flex flex-col justify-between transition-all duration-300 shadow-panel group ${
+      whileHover={getCardHover(canHover, prefersReducedMotion)}
+      className={`bg-workspace-panel border border-workspace-border hover:border-brand-red/50 rounded-xl overflow-hidden flex flex-col justify-between transition-[border-color,box-shadow,background-color] duration-200 shadow-panel group ${
         isFeatured ? 'col-span-full' : 'col-span-1'
       }`}
     >
@@ -58,7 +59,9 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
               <img
                 src={project.image}
                 alt={project.title}
-                className="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-[1.02]"
+                className={`w-full h-full object-cover object-top ${
+                  canHover ? 'transition-transform duration-300 group-hover:scale-[1.02]' : ''
+                }`}
                 onError={(e) => {
                   (e.target as HTMLImageElement).src = '/profile.jpg';
                 }}
@@ -68,7 +71,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
 
           {/* Project Header Info */}
           <div>
-            <h3 className="text-xl sm:text-2xl font-bold text-content-primary group-hover:text-brand-red transition-colors">
+            <h3 className="text-xl sm:text-2xl font-bold text-content-primary group-hover:text-brand-red transition-colors duration-150">
               {project.title}
             </h3>
             <p className="text-xs font-mono text-content-muted mt-0.5">
@@ -104,7 +107,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
               onClick={() => onOpenCaseStudy(project)}
               className={`${
                 hasSecondaryLinks ? 'flex-1 sm:flex-none' : 'w-full'
-              } py-2.5 px-3.5 rounded-lg bg-workspace-card hover:bg-brand-red text-content-primary hover:text-white border border-workspace-border hover:border-brand-red text-xs font-mono font-semibold flex items-center justify-center gap-2 transition-all duration-200`}
+              } py-2.5 px-3.5 rounded-lg bg-workspace-card hover:bg-brand-red text-content-primary hover:text-white border border-workspace-border hover:border-brand-red text-xs font-mono font-semibold flex items-center justify-center gap-2 transition-colors duration-150 active:translate-y-[1px]`}
             >
               <span>OPEN PROJECT</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
@@ -118,7 +121,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}
-                    className="inline-flex items-center gap-1 text-content-muted hover:text-brand-red transition-colors py-1"
+                    className="inline-flex items-center gap-1 text-content-muted hover:text-brand-red transition-colors duration-150 py-1"
                     title="View GitHub Repository"
                   >
                     <GithubIcon className="w-3.5 h-3.5" />
@@ -132,7 +135,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}
-                    className="inline-flex items-center gap-1 text-content-muted hover:text-brand-red transition-colors py-1"
+                    className="inline-flex items-center gap-1 text-content-muted hover:text-brand-red transition-colors duration-150 py-1"
                     title="View Live Demo"
                   >
                     <ExternalLink className="w-3.5 h-3.5" />

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { GraduationCap, Calendar, MapPin, School, Building2, BookOpen } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useAnimationConfig, getPageEntrance, getFadeUpOnce, getCardHover } from '../utils/motion';
 
 interface EducationItem {
   id: string;
@@ -58,12 +59,11 @@ const educationHistory: EducationItem[] = [
 
 export const Education: React.FC = () => {
   const [imgErrors, setImgErrors] = useState<Record<string, boolean>>({});
+  const { prefersReducedMotion, isMobile, canHover } = useAnimationConfig();
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 15 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
+      {...getPageEntrance(prefersReducedMotion, isMobile)}
       className="space-y-8"
     >
       {/* Header */}
@@ -93,10 +93,9 @@ export const Education: React.FC = () => {
           return (
             <motion.div
               key={item.id}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: idx * 0.08 }}
-              className="bg-workspace-panel border border-workspace-border hover:border-brand-red/40 rounded-xl overflow-hidden shadow-panel transition-all duration-200 group p-3.5 sm:p-4"
+              {...getFadeUpOnce(prefersReducedMotion, isMobile, idx * 0.06)}
+              whileHover={getCardHover(canHover, prefersReducedMotion)}
+              className="bg-workspace-panel border border-workspace-border hover:border-brand-red/40 rounded-xl overflow-hidden shadow-panel transition-[border-color,box-shadow] duration-200 group p-3.5 sm:p-4"
             >
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-6">
                 {/* LEFT SIDE: Logo + School Name & Degree */}

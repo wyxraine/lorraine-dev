@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { skillCategoriesData } from '../data/skills';
+import { useAnimationConfig, getPageEntrance, getFadeUpOnce } from '../utils/motion';
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Code,
@@ -21,11 +22,11 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 };
 
 export const Skills: React.FC = () => {
+  const { prefersReducedMotion, isMobile } = useAnimationConfig();
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 15 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
+      {...getPageEntrance(prefersReducedMotion, isMobile)}
       className="space-y-8"
     >
       {/* Header */}
@@ -54,9 +55,7 @@ export const Skills: React.FC = () => {
           return (
             <motion.div
               key={cat.category}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: catIdx * 0.08 }}
+              {...getFadeUpOnce(prefersReducedMotion, isMobile, catIdx * 0.06)}
               className="bg-workspace-panel border border-workspace-border rounded-xl overflow-hidden flex flex-col justify-between shadow-panel"
             >
               {/* Category Header */}

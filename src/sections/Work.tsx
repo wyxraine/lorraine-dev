@@ -4,10 +4,12 @@ import { projectsData } from '../data/projects';
 import { ProjectCard } from '../components/projects/ProjectCard';
 import { ProjectModal } from '../components/windows/ProjectModal';
 import type { Project } from '../types';
+import { useAnimationConfig, getPageEntrance } from '../utils/motion';
 
 export const Work: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
   const [activeProject, setActiveProject] = useState<Project | null>(null);
+  const { prefersReducedMotion, isMobile } = useAnimationConfig();
 
   const categories = ['ALL', 'AI', 'WEB', 'MOBILE', 'GAME'];
 
@@ -33,9 +35,7 @@ export const Work: React.FC = () => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 15 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
+      {...getPageEntrance(prefersReducedMotion, isMobile)}
       className="space-y-8"
     >
       {/* Projects Page Header */}
@@ -61,7 +61,7 @@ export const Work: React.FC = () => {
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-3 py-1 rounded-md text-xs font-mono transition-all duration-150 ${
+              className={`px-3 py-1 rounded-md text-xs font-mono transition-colors duration-150 ${
                 selectedCategory === cat
                   ? 'bg-brand-red text-white font-semibold shadow-sm'
                   : 'text-content-secondary hover:text-content-primary hover:bg-workspace-card'

@@ -14,6 +14,7 @@ import { WindowFrame } from '../components/windows/WindowFrame';
 import { Button } from '../components/ui/Button';
 import { interestsData, type InterestItem } from '../data/interests';
 import type { NavigationSection } from '../types';
+import { useAnimationConfig, getPageEntrance, getFadeUpOnce, getCardHover } from '../utils/motion';
 
 interface AboutProps {
   onNavigate: (section: NavigationSection) => void;
@@ -64,6 +65,7 @@ export const About: React.FC<AboutProps> = ({ onNavigate }) => {
   const [selectedMilestone, setSelectedMilestone] = useState<MilestoneContainer | null>(null);
   const [activeImageIndex, setActiveImageIndex] = useState<number>(0);
   const [selectedInterest, setSelectedInterest] = useState<InterestItem | null>(null);
+  const { prefersReducedMotion, isMobile, canHover } = useAnimationConfig();
 
   // Lock body scroll when milestone modal is active
   useEffect(() => {
@@ -100,9 +102,7 @@ export const About: React.FC<AboutProps> = ({ onNavigate }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 15 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
+      {...getPageEntrance(prefersReducedMotion, isMobile)}
       className="space-y-12 pb-12"
     >
       {/* Section Header */}
@@ -198,7 +198,7 @@ export const About: React.FC<AboutProps> = ({ onNavigate }) => {
       </div>
 
       {/* BEYOND CODE (Personal Directory) Section */}
-      <div className="space-y-6 pt-2">
+      <motion.div {...getFadeUpOnce(prefersReducedMotion, isMobile)} className="space-y-6 pt-2">
         {/* Header & File Count */}
         <div className="border-b border-workspace-border/80 pb-4">
           <div>
@@ -241,7 +241,7 @@ export const About: React.FC<AboutProps> = ({ onNavigate }) => {
                 key={item.id}
                 type="button"
                 onClick={() => setSelectedInterest(item)}
-                className="relative overflow-hidden p-5 rounded-xl bg-workspace-panel border border-workspace-border hover:border-brand-red/60 transition-all duration-200 text-left group cursor-pointer shadow-sm hover:shadow-glow-red/10 focus:outline-none focus:ring-2 focus:ring-brand-red/50 col-span-1"
+                className="relative overflow-hidden p-5 rounded-xl bg-workspace-panel border border-workspace-border hover:border-brand-red/60 transition-[border-color,box-shadow] duration-200 text-left group cursor-pointer shadow-sm hover:shadow-glow-red/10 focus:outline-none focus:ring-2 focus:ring-brand-red/50 col-span-1"
               >
                 {/* Standard Document Card Layout */}
                 <div className="relative z-10 flex flex-col justify-between h-full space-y-5">
@@ -279,10 +279,10 @@ export const About: React.FC<AboutProps> = ({ onNavigate }) => {
             );
           })}
         </div>
-      </div>
+      </motion.div>
 
       {/* Gallery Section */}
-      <div className="space-y-6 pt-4">
+      <motion.div {...getFadeUpOnce(prefersReducedMotion, isMobile)} className="space-y-6 pt-4">
         <div className="border-b border-workspace-border/80 pb-4">
           <div className="flex items-center gap-2 mb-1">
             <Camera className="w-4 h-4 text-brand-red" />
@@ -303,14 +303,13 @@ export const About: React.FC<AboutProps> = ({ onNavigate }) => {
           {milestoneContainers.map((milestone, idx) => (
             <motion.div
               key={milestone.id}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: idx * 0.1 }}
+              {...getFadeUpOnce(prefersReducedMotion, isMobile, idx * 0.08)}
+              whileHover={getCardHover(canHover, prefersReducedMotion)}
               onClick={() => {
                 setSelectedMilestone(milestone);
                 setActiveImageIndex(0);
               }}
-              className="bg-workspace-panel border border-workspace-border hover:border-brand-red/40 rounded-xl overflow-hidden shadow-panel transition-all duration-200 group cursor-pointer flex flex-col justify-between"
+              className="bg-workspace-panel border border-workspace-border hover:border-brand-red/40 rounded-xl overflow-hidden shadow-panel transition-[border-color,box-shadow] duration-200 group cursor-pointer flex flex-col justify-between"
             >
               <div className="space-y-4 p-4 sm:p-5 flex-1 flex flex-col justify-between">
                 {/* Header: Title + Subtitle on left, Milestone Number on right */}
@@ -335,7 +334,9 @@ export const About: React.FC<AboutProps> = ({ onNavigate }) => {
                   <img
                     src={milestone.coverImage}
                     alt={milestone.title}
-                    className={`w-full h-full object-cover ${milestone.objectPosition || 'object-center'} group-hover:scale-[1.025] transition-transform duration-200`}
+                    className={`w-full h-full object-cover ${milestone.objectPosition || 'object-center'} ${
+                      canHover ? 'group-hover:scale-[1.025] transition-transform duration-200' : ''
+                    }`}
                     onError={(e) => {
                       (e.target as HTMLImageElement).src = '/profile.jpg';
                     }}
@@ -362,7 +363,7 @@ export const About: React.FC<AboutProps> = ({ onNavigate }) => {
             </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
 
       {/* Milestone Gallery Lightbox Modal */}
       <AnimatePresence>

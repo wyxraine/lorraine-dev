@@ -46,10 +46,10 @@ function AppContent() {
 export function App() {
   const [isLoading, setIsLoading] = useState(true);
 
-  // Dismiss the loading screen after ~2.5 seconds (or 1.0s for reduced motion)
+  // Dismiss the loading screen after ~1.6 seconds (or 600ms for reduced motion)
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const duration = prefersReducedMotion ? 1000 : 2500;
+    const duration = prefersReducedMotion ? 600 : 1600;
 
     const timer = setTimeout(() => setIsLoading(false), duration);
     return () => clearTimeout(timer);

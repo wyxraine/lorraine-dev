@@ -37,11 +37,19 @@ export const WorkspaceLayout: React.FC<WorkspaceLayoutProps> = ({ children }) =>
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
 
   const activeTabRef = useRef<HTMLDivElement | null>(null);
+  const contentContainerRef = useRef<HTMLDivElement | null>(null);
 
   // Auto-scroll active tab into view on desktop/tablet tab bar
   useEffect(() => {
     if (activeTabRef.current) {
       activeTabRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+    }
+  }, [activeTab]);
+
+  // Reset content scroll position on tab switch
+  useEffect(() => {
+    if (contentContainerRef.current) {
+      contentContainerRef.current.scrollTo({ top: 0, behavior: 'instant' });
     }
   }, [activeTab]);
 
@@ -121,7 +129,7 @@ export const WorkspaceLayout: React.FC<WorkspaceLayoutProps> = ({ children }) =>
           </div>
 
           {/* Scrollable Content Container */}
-          <div className="flex-1 overflow-y-auto px-4 sm:px-8 lg:px-12 pt-3 pb-24 sm:pb-32 scroll-smooth">
+          <div ref={contentContainerRef} className="flex-1 overflow-y-auto px-4 sm:px-8 lg:px-12 pt-3 pb-24 sm:pb-32 scroll-smooth">
             <div className="max-w-6xl mx-auto w-full">
               {children}
             </div>

@@ -3,6 +3,7 @@ import { MapPin, Minus, X, Square } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { portfolioMeta } from '../../data/portfolioData';
 import { useProfileWindow } from '../../context/ProfileWindowContext';
+import { useAnimationConfig } from '../../utils/motion';
 
 interface ProfileWindowProps {
   dragConstraints?: React.RefObject<any> | { top?: number; left?: number; right?: number; bottom?: number } | false;
@@ -13,6 +14,7 @@ export const ProfileWindow: React.FC<ProfileWindowProps> = ({
 }) => {
   const [imgError, setImgError] = useState(false);
   const { isMinimized, isClosed, minimize, close } = useProfileWindow();
+  const { canHover, prefersReducedMotion } = useAnimationConfig();
 
   if (isMinimized || isClosed) {
     return null;
@@ -26,12 +28,12 @@ export const ProfileWindow: React.FC<ProfileWindowProps> = ({
         dragElastic={0.05}
         dragMomentum={false}
         whileDrag={{ scale: 1.02, zIndex: 50, boxShadow: '0 25px 50px -12px rgba(229, 72, 77, 0.3)' }}
-        initial={{ opacity: 0, scale: 0.96 }}
-        animate={{ opacity: 1, scale: 1 }}
+        initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 14, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, scale: 0.95 }}
-        transition={{ duration: 0.2, ease: 'easeOut' }}
-        whileHover={{ y: -4 }}
-        className="fixed bottom-9 right-4 sm:right-11 z-40 w-[calc(100vw-32px)] max-w-[360px] sm:w-[360px] bg-workspace-panel border border-workspace-border hover:border-brand-red/40 rounded-2xl shadow-window overflow-hidden transition-colors duration-300 group cursor-grab active:cursor-grabbing select-none touch-none"
+        transition={{ duration: prefersReducedMotion ? 0.15 : 0.45, delay: prefersReducedMotion ? 0 : 0.25, ease: 'easeOut' }}
+        whileHover={canHover && !prefersReducedMotion ? { y: -3 } : undefined}
+        className="fixed bottom-9 right-4 sm:right-11 z-40 w-[calc(100vw-32px)] max-w-[360px] sm:w-[360px] bg-workspace-panel border border-workspace-border hover:border-brand-red/40 rounded-2xl shadow-window overflow-hidden transition-[border-color,box-shadow] duration-200 group cursor-grab active:cursor-grabbing select-none touch-none"
       >
         {/* Window Header */}
         <div className="bg-workspace-sidebar/95 border-b border-workspace-border px-4 py-3 flex items-center justify-between">
