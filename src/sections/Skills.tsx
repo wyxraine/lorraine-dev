@@ -11,6 +11,7 @@ import {
 import { motion } from 'framer-motion';
 import { skillCategoriesData } from '../data/skills';
 import { useAnimationConfig, getPageEntrance, getFadeUpOnce } from '../utils/motion';
+import { SkillIcon } from '../components/ui/SkillIcon';
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Code,
@@ -80,12 +81,15 @@ export const Skills: React.FC = () => {
                     key={skill.name}
                     className="p-3 rounded-lg bg-workspace-card/70 border border-workspace-border dark:border-[#303030] hover:border-brand-red/40 dark:hover:border-brand-red/40 transition-colors space-y-1.5"
                   >
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-bold text-content-primary">
-                        {skill.name}
-                      </span>
+                    <div className="flex items-center justify-between gap-2.5">
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <SkillIcon skillName={skill.name} className="w-5 h-5 shrink-0" />
+                        <span className="text-sm font-bold text-content-primary truncate">
+                          {skill.name}
+                        </span>
+                      </div>
                       {skill.tag && (
-                        <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-workspace-panel text-content-muted border border-workspace-border dark:border-[#2a2a2a]">
+                        <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-workspace-panel text-content-muted border border-workspace-border dark:border-[#2a2a2a] shrink-0">
                           {skill.tag}
                         </span>
                       )}

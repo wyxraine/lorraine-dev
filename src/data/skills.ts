@@ -62,6 +62,11 @@ export const skillCategoriesData: SkillCategory[] = [
         tag: 'Relational DB'
       },
       {
+        name: 'HeidiSQL',
+        usedIn: ['MySQL Database Management'],
+        tag: 'Database Tool'
+      },
+      {
         name: 'Supabase',
         usedIn: ['LexiAid'],
         tag: 'Backend Platform'
@@ -145,14 +150,19 @@ export const skillCategoriesData: SkillCategory[] = [
         tag: 'Development Environment'
       },
       {
-        name: 'HeidiSQL',
-        usedIn: ['MySQL Database Management'],
-        tag: 'Database Tool'
-      },
-      {
         name: 'VS Code',
         usedIn: ['Daily Development'],
         tag: 'Code Editor'
+      },
+      {
+        name: 'Google Antigravity',
+        usedIn: ['Daily Development'],
+        tag: 'AI Development'
+      },
+      {
+        name: 'OpenAI Codex',
+        usedIn: ['Daily Development'],
+        tag: 'AI Coding Agent'
       }
     ]
   },
