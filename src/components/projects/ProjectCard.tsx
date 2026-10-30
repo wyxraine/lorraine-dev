@@ -51,22 +51,35 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         <div className="space-y-4">
           {/* Visual Preview Area */}
           {project.image && (
-            <div
-              className={`relative w-full rounded-lg overflow-hidden bg-workspace-bg border border-workspace-border/60 ${
-                isFeatured ? 'aspect-video max-h-[175px] sm:max-h-[225px] md:max-h-[265px]' : 'aspect-video'
-              }`}
-            >
-              <img
-                src={project.image}
-                alt={project.title}
-                className={`w-full h-full object-cover object-top ${
-                  canHover ? 'transition-transform duration-300 group-hover:scale-[1.02]' : ''
-                }`}
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src = '/profile.jpg';
-                }}
-              />
-            </div>
+            project.id === 'lexiaid' ? (
+              /* LexiAid: portrait mockup — use contain so all three phones are fully visible */
+              <div className="relative w-full rounded-lg overflow-hidden border border-workspace-border/60 bg-white flex items-center justify-center h-48 sm:h-64 lg:h-80">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className={`max-h-full max-w-full object-contain ${
+                    canHover ? 'transition-transform duration-300 group-hover:scale-[1.02]' : ''
+                  }`}
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = '/profile.jpg';
+                  }}
+                />
+              </div>
+            ) : (
+              /* All other projects: landscape screenshots — cover in a fixed-height container */
+              <div className="relative w-full rounded-lg overflow-hidden bg-workspace-bg border border-workspace-border/60 h-48 sm:h-64 lg:h-80">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className={`w-full h-full object-cover object-top ${
+                    canHover ? 'transition-transform duration-300 group-hover:scale-[1.02]' : ''
+                  }`}
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = '/profile.jpg';
+                  }}
+                />
+              </div>
+            )
           )}
 
           {/* Project Header Info */}

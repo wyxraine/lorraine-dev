@@ -22,17 +22,6 @@ export const Work: React.FC = () => {
     return p.category.toUpperCase() === selectedCategory;
   });
 
-  const isAllSelected = selectedCategory === 'ALL';
-  const featuredProject = isAllSelected
-    ? filteredProjects.find((p) => p.id === 'lexiaid')
-    : filteredProjects.length === 1 && filteredProjects[0].id === 'lexiaid'
-    ? filteredProjects[0]
-    : null;
-
-  const regularProjects = featuredProject
-    ? filteredProjects.filter((p) => p !== featuredProject)
-    : filteredProjects;
-
   return (
     <motion.div
       {...getPageEntrance(prefersReducedMotion, isMobile)}
@@ -73,32 +62,15 @@ export const Work: React.FC = () => {
         </div>
       </div>
 
-      {/* Projects Presentation Grid */}
-      <div className="space-y-6">
-        {/* Featured Project (LexiAid) - Full Width */}
-        {featuredProject && (
-          <div>
-            <ProjectCard
-              project={featuredProject}
-              onOpenCaseStudy={(proj) => setActiveProject(proj)}
-              isFeatured={true}
-            />
-          </div>
-        )}
-
-        {/* 2-Column Grid for Remaining Projects */}
-        {regularProjects.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {regularProjects.map((project) => (
-              <ProjectCard
-                key={project.id}
-                project={project}
-                onOpenCaseStudy={(proj) => setActiveProject(proj)}
-                isFeatured={false}
-              />
-            ))}
-          </div>
-        )}
+      {/* Projects Presentation Grid (2 columns on desktop, 1 column on mobile/tablet) */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {filteredProjects.map((project) => (
+          <ProjectCard
+            key={project.id}
+            project={project}
+            onOpenCaseStudy={(proj) => setActiveProject(proj)}
+          />
+        ))}
       </div>
 
       {/* Interactive Case Study Modal */}

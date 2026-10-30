@@ -7,7 +7,7 @@ export const projectsData: Project[] = [
     title: 'LexiAid',
     subtitle: 'Mobile-Based Legal Assistance Application',
     category: 'AI',
-    featured: true,
+    featured: false,
     image: '/LexiAid.png',
     githubUrl: 'https://github.com/wyxraine/LexiAid',
     liveDemoUrl: 'https://sites.google.com/view/lexiaid/home',
